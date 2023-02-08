@@ -23,7 +23,19 @@ namespace Mission6Assignment_cgp27.Controllers
             return View();
         }
 
-        public IActionResult Privacy()
+        public IActionResult MyPodcasts()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public IActionResult AddMovie()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult AddMovie(Movie model)
         {
             return View();
         }
