@@ -9,6 +9,9 @@ namespace Mission6Assignment_cgp27.Models
     public class Movie
     {
         [Required]
+        [Key]
+        public int MovieId { get; set; }
+        [Required]
         public string Category { get; set; }
         [Required]
         public string Title { get; set; }
