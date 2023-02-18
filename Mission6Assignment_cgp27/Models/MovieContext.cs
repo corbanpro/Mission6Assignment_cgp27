@@ -8,19 +8,40 @@ namespace Mission6Assignment_cgp27.Models
 {
     public class MovieContext : DbContext
     {
+
         public MovieContext (DbContextOptions<MovieContext> options) : base (options)
         {
         }
 
+
         public DbSet<Movie> Movies { get; set; }
+
+        public DbSet<Category> Categories { get; set; }
 
         protected override void OnModelCreating(ModelBuilder mb)
         {
+            mb.Entity<Category>().HasData(
+                new Category
+                {
+                    CategoryId = 1,
+                    CategoryName = "Action"
+                },
+                new Category
+                {
+                    CategoryId = 2,
+                    CategoryName = "Comedy"
+                },
+                new Category
+                {
+                    CategoryId = 3,
+                    CategoryName = "Fantasy"
+                });
+
             mb.Entity<Movie>().HasData(
                 new Movie
                 {
                     MovieId = 1,
-                    Category = "Action",
+                    CategoryId = 1,
                     Title = "Avengers, Infinity War",
                     Year = 2018,
                     Director = "Anthony and Joe Russo",
@@ -30,7 +51,7 @@ namespace Mission6Assignment_cgp27.Models
                 new Movie
                 {
                     MovieId = 2,
-                    Category = "Fantasy",
+                    CategoryId = 2,
                     Title = "The Lord of the Rings: The Return of the King",
                     Year = 2003,
                     Director = "Peter Jackson",
@@ -42,7 +63,7 @@ namespace Mission6Assignment_cgp27.Models
                 new Movie
                 {
                     MovieId = 3,
-                    Category = "Comedy",
+                    CategoryId = 3,
                     Title = "Napoleon Dynamite",
                     Year = 2004,
                     Director = "Jared Hess",

@@ -11,19 +11,23 @@ namespace Mission6Assignment_cgp27.Models
         [Required]
         [Key]
         public int MovieId { get; set; }
-        [Required]
-        public string Category { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Please Enter a Movie Title")]
         public string Title { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Please Enter the Release Year")]
+        [Range(1900, 2023, ErrorMessage = "Invalid Year")]
         public int Year { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Please Enter the Director(s)")]
         public string Director { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Please Enter the Rating")]
         public string Rating { get; set; }
         public bool Edited { get; set; }
+        [MaxLength(50)]
         public string LentTo { get; set; }
         [MaxLength(25)]
         public string Notes { get; set; }
+
+        [Required(ErrorMessage = "Please Enter the Category")]
+        public int CategoryId { get; set; }
+        public Category Category { get; set; }
     }
 }

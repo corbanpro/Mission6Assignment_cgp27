@@ -8,7 +8,7 @@ using Mission6Assignment_cgp27.Models;
 namespace Mission6Assignment_cgp27.Migrations
 {
     [DbContext(typeof(MovieContext))]
-    [Migration("20230212005355_Initial")]
+    [Migration("20230218030248_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -17,15 +17,46 @@ namespace Mission6Assignment_cgp27.Migrations
             modelBuilder
                 .HasAnnotation("ProductVersion", "3.1.32");
 
+            modelBuilder.Entity("Mission6Assignment_cgp27.Models.Category", b =>
+                {
+                    b.Property<int>("CategoryId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("CategoryName")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("CategoryId");
+
+                    b.ToTable("Categories");
+
+                    b.HasData(
+                        new
+                        {
+                            CategoryId = 1,
+                            CategoryName = "Action"
+                        },
+                        new
+                        {
+                            CategoryId = 2,
+                            CategoryName = "Comedy"
+                        },
+                        new
+                        {
+                            CategoryId = 3,
+                            CategoryName = "Fantasy"
+                        });
+                });
+
             modelBuilder.Entity("Mission6Assignment_cgp27.Models.Movie", b =>
                 {
                     b.Property<int>("MovieId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("Category")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Director")
                         .IsRequired()
@@ -54,13 +85,15 @@ namespace Mission6Assignment_cgp27.Migrations
 
                     b.HasKey("MovieId");
 
+                    b.HasIndex("CategoryId");
+
                     b.ToTable("Movies");
 
                     b.HasData(
                         new
                         {
                             MovieId = 1,
-                            Category = "Action",
+                            CategoryId = 1,
                             Director = "Anthony and Joe Russo",
                             Edited = true,
                             Rating = "PG-13",
@@ -70,7 +103,7 @@ namespace Mission6Assignment_cgp27.Migrations
                         new
                         {
                             MovieId = 2,
-                            Category = "Fantasy",
+                            CategoryId = 2,
                             Director = "Peter Jackson",
                             Edited = false,
                             LentTo = "Jacob",
@@ -82,7 +115,7 @@ namespace Mission6Assignment_cgp27.Migrations
                         new
                         {
                             MovieId = 3,
-                            Category = "Comedy",
+                            CategoryId = 3,
                             Director = "Jared Hess",
                             Edited = false,
                             LentTo = "Rachel",
@@ -91,6 +124,15 @@ namespace Mission6Assignment_cgp27.Migrations
                             Title = "Napoleon Dynamite",
                             Year = 2004
                         });
+                });
+
+            modelBuilder.Entity("Mission6Assignment_cgp27.Models.Movie", b =>
+                {
+                    b.HasOne("Mission6Assignment_cgp27.Models.Category", "Category")
+                        .WithMany()
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }
